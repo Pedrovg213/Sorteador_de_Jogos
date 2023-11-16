@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:modelosVisuais="clr-namespace:SeletorJogo.ModelosVisuais"
+			 x:Class="SeletorJogo.Paginas.InicialPagina"
+			 x:DataType="modelosVisuais:ListaJogosMV"
+			 Title="Jogos"
+			 AnchorX="200">
+
+	<ContentPage.Resources>
+
+		<Style x:Key="JogoFrame"
+			   TargetType="Frame">
+
+			<Setter Property="Padding"
+					Value="0" />
+			<Setter Property="Margin"
+					Value="5" />
+
+		</Style>
+
+		<Style x:Key="JogoGrid"
+			   TargetType="Grid">
+
+			<Setter Property="ColumnDefinitions"
+					Value="*, 4*, *" />
+			<Setter Property="RowDefinitions"
+					Value="Auto" />
+
+		</Style>
+
+		<Style x:Key="NomeLabel"
+			   TargetType="Label">
+
+			<Setter Property="Grid.Column"
+					Value="1" />
+			<Setter Property="HorizontalOptions"
+					Value="Center" />
+			<Setter Property="HorizontalTextAlignment"
+					Value="Center" />
+			<Setter Property="VerticalOptions"
+					Value="Center" />
+			<Setter Property="VerticalTextAlignment"
+					Value="Center" />
+
+		</Style>
+
+		<Style x:Key="ZeradoCheckBox"
+			   TargetType="CheckBox">
+
+			<Setter Property="Grid.Column"
+					Value="0" />
+			<Setter Property="HorizontalOptions"
+					Value="Start" />
+			<Setter Property="VerticalOptions"
+					Value="Center" />
+			<Setter Property="Margin"
+					Value="15, 0, 0, 0" />
+
+		</Style>
+
+		<Style x:Key="AtualizaButton"
+			   TargetType="Button">
+
+			<Setter Property="Grid.Column"
+					Value="1" />
+			<Setter Property="BackgroundColor"
+					Value="Transparent" />
+			<Setter Property="BorderColor"
+					Value="Transparent" />
+
+		</Style>
+
+		<Style x:Key="ExcluirJogoButton"
+			   TargetType="Button">
+
+			<Setter Property="Grid.Column"
+					Value="2" />
+			<Setter Property="HorizontalOptions"
+					Value="End" />
+			<Setter Property="Margin"
+					Value="0, 10, 30, 10" />
+			<Setter Property="Text"
+					Value="X" />
+			<Setter Property="FontSize"
+					Value="15" />
+			<Setter Property="TextColor"
+					Value="Black" />
+			<Setter Property="MaximumHeightRequest"
+					Value="65" />
+			<Setter Property="MaximumWidthRequest"
+					Value="65" />
+
+		</Style>
+
+	</ContentPage.Resources>
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Selecione um arquivo."
+					 Order="Secondary"
+					 Command="{Binding AbrirSeletorArquivoCommand}" />
+	</ContentPage.ToolbarItems>
+
+	<RefreshView IsRefreshing="{Binding IsRefresh}">
+		<Grid Margin="30, 30, 0, 30"
+			  RowDefinitions="*, 60">
+			<ScrollView>
+				<Grid RowDefinitions="Auto, Auto, Auto"
+					  Margin="0, 0, 30, 0">
+					<VerticalStackLayout Spacing="15">
+						<!--ESPERANDO-->
+						<Frame>
+							<VerticalStackLayout Grid.Row="0">
+
+								<HorizontalStackLayout HorizontalOptions="Center"
+													   Spacing="5">
+									<Label Text="____ESPERANDO ="
+										   FontSize="25" />
+
+									<Label Text="{Binding JogosAJogarQuant}"
+										   FontSize="25" />
+								</HorizontalStackLayout>
+								<CollectionView ItemsSource="{Binding JogosAJogarMV}"
+												Margin="0, 10, 0, 30">
+
+									<CollectionView.EmptyView>
+
+										<Frame HorizontalOptions="Center"
+											   VerticalOptions="Center"
+											   Style="{StaticResource FramePaginaVazia}">
+
+											<VerticalStackLayout>
+												<Label Text="Não há mais jogos em espera."
+													   Style="{StaticResource LabelPaginaVazia}" />
+
+												<Label Text="Pressione 'Adicionar Jogo' para registrar um novo."
+													   Style="{StaticResource LabelPaginaVazia}" />
+											</VerticalStackLayout>
+										</Frame>
+
+									</CollectionView.EmptyView>
+
+									<CollectionView.ItemTemplate>
+										<DataTemplate x:DataType="modelosVisuais:JogoMV">
+
+											<Frame Style="{DynamicResource JogoFrame}">
+												<Grid Style="{DynamicResource JogoGrid}">
+
+													<Label Text="{Binding Nome}"
+														   Style="{DynamicResource NomeLabel}" />
+
+													<Button Command="{Binding AbrirAtualizadorJogoCommand}"
+															Style="{StaticResource AtualizaButton}" />
+
+													<Button Command="{Binding ExlcluirJogoCommand}"
+															Style="{DynamicResource ExcluirJogoButton}" />
+
+												</Grid>
+											</Frame>
+										</DataTemplate>
+									</CollectionView.ItemTemplate>
+								</CollectionView>
+							</VerticalStackLayout>
+						</Frame>
+
+						<!--INICIADOS-->
+						<Frame>
+							<VerticalStackLayout Grid.Row="1">
+
+								<HorizontalStackLayout HorizontalOptions="Center"
+													   Spacing="5">
+									<Label Text="____INICIADOS ="
+										   FontSize="25" />
+
+									<Label Text="{Binding JogosIniciadosQuant}"
+										   FontSize="25" />
+								</HorizontalStackLayout>
+
+								<CollectionView ItemsSource="{Binding JogosIniciadosMV}"
+												Margin="0, 10, 0, 30">
+
+									<CollectionView.EmptyView>
+
+										<Frame HorizontalOptions="Center"
+											   VerticalOptions="Center"
+											   Style="{DynamicResource FramePaginaVazia}">
+
+											<VerticalStackLayout>
+												<Label Text="Não há jogos sendo jogados."
+													   Style="{DynamicResource LabelPaginaVazia}" />
+
+												<Label Text="Pressione 'Sortear Jogo' para sortear e iniciar um novo."
+													   Style="{DynamicResource LabelPaginaVazia}" />
+											</VerticalStackLayout>
+										</Frame>
+
+									</CollectionView.EmptyView>
+
+									<CollectionView.ItemTemplate>
+										<DataTemplate x:DataType="modelosVisuais:JogoMV">
+
+											<Frame Style="{DynamicResource JogoFrame}">
+												<Grid Style="{DynamicResource JogoGrid}">
+
+													<CheckBox IsChecked="{Binding Zerado}"
+															  Style="{DynamicResource ZeradoCheckBox}" />
+
+													<Label Text="{Binding Nome}"
+														   Style="{DynamicResource NomeLabel}" />
+
+													<Button Command="{Binding ExlcluirJogoCommand}"
+															Style="{DynamicResource ExcluirJogoButton}" />
+
+												</Grid>
+											</Frame>
+										</DataTemplate>
+									</CollectionView.ItemTemplate>
+								</CollectionView>
+							</VerticalStackLayout>
+						</Frame>
+
+						<!--ZERADOS-->
+						<Frame>
+							<VerticalStackLayout Grid.Row="2">
+
+								<HorizontalStackLayout HorizontalOptions="Center"
+													   Spacing="5">
+									<Label Text="____ZERADOS ="
+										   FontSize="25" />
+
+									<Label Text="{Binding JogosZeradosQuant}"
+										   FontSize="25" />
+								</HorizontalStackLayout>
+
+								<CollectionView ItemsSource="{Binding JogosZeradosMV}"
+												Margin="0, 10, 0, 30">
+
+									<CollectionView.EmptyView>
+
+										<Frame HorizontalOptions="Center"
+											   VerticalOptions="Center"
+											   Style="{DynamicResource FramePaginaVazia}">
+
+											<VerticalStackLayout>
+												<Label Text="Não há jogos zerados."
+													   Style="{DynamicResource LabelPaginaVazia}" />
+												<Label Text="Finalize alguns dos jogos que estiver jogando e o marque como zerado."
+													   Style="{DynamicResource LabelPaginaVazia}" />
+											</VerticalStackLayout>
+
+										</Frame>
+
+									</CollectionView.EmptyView>
+
+									<CollectionView.ItemTemplate>
+										<DataTemplate x:DataType="modelosVisuais:JogoMV">
+
+											<Frame Style="{DynamicResource JogoFrame}">
+
+												<Grid Style="{DynamicResource JogoGrid}">
+
+													<CheckBox IsChecked="{Binding Zerado}"
+															  Style="{DynamicResource ZeradoCheckBox}" />
+
+													<Label Text="{Binding Nome}"
+														   Style="{DynamicResource NomeLabel}"
+														   HorizontalTextAlignment="Center" />
+
+													<Button Command="{Binding ExlcluirJogoCommand}"
+															Style="{DynamicResource ExcluirJogoButton}" />
+
+												</Grid>
+											</Frame>
+										</DataTemplate>
+									</CollectionView.ItemTemplate>
+								</CollectionView>
+							</VerticalStackLayout>
+						</Frame>
+
+					</VerticalStackLayout>
+				</Grid>
+
+			</ScrollView>
+			<HorizontalStackLayout  Grid.Row="1"
+									HorizontalOptions="Center"
+									VerticalOptions="Center"
+									Spacing="25">
+
+				<Button Text="Adicionar Jogo"
+						Style="{StaticResource BotaoCentral}"
+						Command="{Binding AbrirAdicionarJogoCommand}" />
+
+				<Button Text="Sortear Jogo"
+						Style="{StaticResource BotaoCentral}"
+						Command="{Binding AbrirSorteadorPopUpCommand}" />
+
+			</HorizontalStackLayout>
+		</Grid>
+	</RefreshView>
+</ContentPage>

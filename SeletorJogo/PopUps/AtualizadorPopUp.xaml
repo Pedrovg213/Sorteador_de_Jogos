@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+				  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+				  xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
+				  xmlns:modelosVisuais="clr-namespace:SeletorJogo.ModelosVisuais"
+				  x:Class="SeletorJogo.PopUps.AtualizadorPopUp"
+				  x:DataType="modelosVisuais:JogoMV"
+				  Title="AtualizadorPopUp">
+
+
+	<mopups:PopupPage.Animation>
+
+		<mopupsanim:ScaleAnimation DurationIn="500"
+								   PositionIn="Top"
+								   PositionOut="Bottom"
+								   ScaleIn=".6"
+								   ScaleOut=".6" />
+
+	</mopups:PopupPage.Animation>
+
+	<Grid ColumnDefinitions="*, *"
+		  RowDefinitions="1.5*, 1.5*, *, 1.5*"
+		  HeightRequest="350"
+		  WidthRequest="350"
+		  HorizontalOptions="Center"
+		  VerticalOptions="Center">
+
+		<Border WidthRequest="350"
+				HeightRequest="350"
+				BackgroundColor="Black"
+				HorizontalOptions="Center"
+				VerticalOptions="Center"
+				Grid.ColumnSpan="3"
+				Grid.RowSpan="3">
+
+			<Border.StrokeShape>
+				<RoundRectangle CornerRadius="0, 20, 20, 0" />
+			</Border.StrokeShape>
+
+		</Border>
+
+		<Label Text="Atualizar Jogo"
+			   Grid.ColumnSpan="2"
+			   Margin="15"
+			   VerticalOptions="Start"
+			   HorizontalOptions="Center" />
+
+		<Entry Text="{Binding Nome}"
+			   Placeholder="Nome do jogo"
+			   Grid.ColumnSpan="2"
+			   Grid.RowSpan="2"
+			   Margin="15"
+			   VerticalOptions="CenterAndExpand"
+			   HorizontalOptions="CenterAndExpand"
+			   HorizontalTextAlignment="Center"
+			   MinimumWidthRequest="300" />
+
+		<HorizontalStackLayout Grid.ColumnSpan="2"
+							   Grid.Row="2"
+							   HorizontalOptions="Center"
+							   VerticalOptions="Center"
+							   Spacing="15">
+
+			<VerticalStackLayout Grid.Column="0"
+								 HorizontalOptions="Center"
+								 VerticalOptions="Center">
+
+				<Label Text="Jogo Iniciado?" />
+				<CheckBox IsChecked="{Binding Iniciado}"
+						  HorizontalOptions="Center" />
+
+			</VerticalStackLayout>
+
+			<VerticalStackLayout Grid.Column="1"
+								 HorizontalOptions="Center"
+								 VerticalOptions="Center">
+
+				<Label Text="Jogo Zerado?" />
+				<CheckBox IsChecked="{Binding Zerado}"
+						  HorizontalOptions="Center" />
+
+			</VerticalStackLayout>
+
+		</HorizontalStackLayout>
+
+		<Button x:Name="okBtn"
+				Text="Ok"
+				Grid.Column="0"
+				Grid.Row="3"
+				Margin="15, 10, 10, 15"
+				VerticalOptions="End"
+				TextColor="Black" />
+
+		<Button x:Name="cacelarBtn"
+				Text="Cancelar"
+				Grid.Column="1"
+				Grid.Row="3"
+				Margin="15, 10, 10, 15"
+				VerticalOptions="End"
+				TextColor="Black" />
+
+	</Grid>
+</mopups:PopupPage>
