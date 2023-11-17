@@ -115,7 +115,7 @@
 		<ToolbarItem x:Name="mostrarTodos"
 					 Text="Mostrar todos os jogos"
 					 Order="Secondary"
-					 Clicked="Tbi_OcultarZerados_Clicked" />
+					 Clicked="Tbi_MostrarTodos_Clicked" />
 
 		<ToolbarItem Text="Selecione um arquivo"
 					 Order="Secondary"
