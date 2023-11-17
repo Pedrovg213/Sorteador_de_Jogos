@@ -53,6 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\Images\QR_code.png" />
 		<None Remove="Resources\Images\x_dark_icon.png" />
 		<None Remove="Resources\Images\x_light_icon.png" />
 	</ItemGroup>
@@ -71,6 +72,9 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="PopUps\AtualizadorPopUp.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="PopUps\DoacaoPopUp.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="PopUps\SemJogoParaSorteioPopUp.xaml">

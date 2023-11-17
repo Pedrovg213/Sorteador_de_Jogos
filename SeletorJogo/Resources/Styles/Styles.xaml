@@ -74,11 +74,7 @@
 		<Setter Property="FontSize"
 				Value="20" />
 		<Setter Property="WidthRequest"
-				Value="250" />
-		<Setter Property="BackgroundColor"
-				Value="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}" />
-		<Setter Property="TextColor"
-				Value="{AppThemeBinding Dark={StaticResource Black}, Light={StaticResource White}}" />
+				Value="250"/>
 
 
 	</Style>
@@ -207,8 +203,6 @@
 	<Style x:Key="FramePaginaVazia"
 		   TargetType="Frame">
 
-		<Setter Property="BackgroundColor"
-				Value="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}" />
 		<Setter Property="CornerRadius"
 				Value="15" />
 
@@ -268,9 +262,6 @@
 
 	<Style x:Key="LabelPaginaVazia"
 		   TargetType="Label">
-
-		<Setter Property="TextColor"
-				Value="{AppThemeBinding Dark={StaticResource Black}, Light={StaticResource White}}" />
 		<Setter Property="VerticalOptions"
 				Value="Center" />
 		<Setter Property="HorizontalOptions"

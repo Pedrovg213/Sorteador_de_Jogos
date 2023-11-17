@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+				  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+				  xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
+				  x:Class="SeletorJogo.PopUps.DoacaoPopUp"
+				  Title="DoacaoPopUp"
+				  BackgroundColor="#80000000">
+
+
+	<mopups:PopupPage.Animation>
+
+		<mopupsanim:ScaleAnimation DurationIn="500"
+								   PositionIn="Top"
+								   PositionOut="Bottom"
+								   ScaleIn=".6"
+								   ScaleOut=".6" />
+
+	</mopups:PopupPage.Animation>
+
+	<Grid ColumnDefinitions="*, *"
+		  RowDefinitions=".5*, 4*, .25*, 1.25*"
+		  HeightRequest="350"
+		  WidthRequest="350"
+		  HorizontalOptions="Center"
+		  VerticalOptions="Center">
+
+		<Border WidthRequest="350"
+				HeightRequest="350"
+				BackgroundColor="Black"
+				HorizontalOptions="Center"
+				VerticalOptions="Center"
+				Grid.ColumnSpan="2"
+				Grid.RowSpan="4">
+
+			<Border.StrokeShape>
+				<RoundRectangle CornerRadius="0, 20, 20, 0" />
+			</Border.StrokeShape>
+
+		</Border>
+
+		<Label Text="Chave Pix"
+			   Grid.ColumnSpan="2"
+			   HorizontalTextAlignment="Center"
+			   VerticalOptions="Center"
+			   FontAttributes="Bold" />
+
+		<Image Source="qr_code.png"
+			   Grid.ColumnSpan="2"
+			   Grid.Row="1"
+			   Margin="15" />
+
+		<Label Text="b137d027-3a15-4a05-aefb-d8209fb7e668"
+			   Grid.ColumnSpan="2"
+			   Grid.Row="2"
+			   FontSize="14"
+			   TextColor="Gray"
+			   HorizontalOptions="Center"
+			   VerticalOptions="End" />
+
+
+		<Button x:Name="copiarBtn"
+				Text="Copiar Código"
+				Grid.Column="0"
+				Grid.Row="3"
+				Margin="15, 10, 10, 15"
+				VerticalOptions="End"
+				TextColor="Black" />
+
+		<Button x:Name="cancelarBtn"
+				Text="Cancelar"
+				Grid.Column="1"
+				Grid.Row="3"
+				Margin="15, 10, 10, 15"
+				VerticalOptions="End"
+				TextColor="Black" />
+
+	</Grid>
+</mopups:PopupPage>

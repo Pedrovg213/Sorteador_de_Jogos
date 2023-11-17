@@ -109,12 +109,12 @@ public partial class ListaJogosMV : BaseMV
 	{
 		todosJogos.Remove( _jogo );
 
-		if (JogosAJogarMV.Contains( _jogo ))
-			JogosAJogarMV.Remove( _jogo );
-		else if (JogosIniciadosMV.Contains( _jogo ))
-			JogosIniciadosMV.Remove( _jogo );
-		else if (JogosZeradosMV.Contains( _jogo ))
-			JogosZeradosMV.Remove( _jogo );
+		if (JogosAJogarMV.Remove( _jogo ))
+			JogosAJogarQuant--;
+		else if (JogosIniciadosMV.Remove( _jogo ))
+			JogosIniciadosQuant--;
+		else if (JogosZeradosMV.Remove( _jogo ))
+			JogosZeradosQuant--;
 	}
 	public void ReordenarJogos ( JogoMV _jogo )
 	{

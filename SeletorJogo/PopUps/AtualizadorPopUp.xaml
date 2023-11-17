@@ -54,7 +54,7 @@
 			   VerticalOptions="CenterAndExpand"
 			   HorizontalOptions="CenterAndExpand"
 			   HorizontalTextAlignment="Center"
-			   MinimumWidthRequest="300" />
+			   MinimumWidthRequest="300"/>
 
 		<HorizontalStackLayout Grid.ColumnSpan="2"
 							   Grid.Row="2"
