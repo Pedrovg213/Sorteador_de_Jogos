@@ -31,8 +31,8 @@
 				BackgroundColor="Black"
 				HorizontalOptions="Center"
 				VerticalOptions="Center"
-				Grid.ColumnSpan="3"
-				Grid.RowSpan="3">
+				Grid.ColumnSpan="2"
+				Grid.RowSpan="4">
 
 			<Border.StrokeShape>
 				<RoundRectangle CornerRadius="0, 20, 20, 0" />

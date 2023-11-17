@@ -4,8 +4,8 @@
 			 xmlns:modelosVisuais="clr-namespace:SeletorJogo.ModelosVisuais"
 			 x:Class="SeletorJogo.Paginas.InicialPagina"
 			 x:DataType="modelosVisuais:ListaJogosMV"
-			 Title="Jogos"
-			 AnchorX="200">
+			 Title="Sorteador de Jogos"
+			 BackgroundColor="Black">
 
 	<ContentPage.Resources>
 
@@ -16,6 +16,8 @@
 					Value="0" />
 			<Setter Property="Margin"
 					Value="5" />
+			<Setter Property="BackgroundColor"
+					Value="Transparent" />
 
 		</Style>
 
@@ -95,64 +97,64 @@
 
 	</ContentPage.Resources>
 
-	<ContentPage.ToolbarItems>
-
-		<ToolbarItem x:Name="ocultarEsperando"
-					 Text="Ocultar jogos em espera"
-					 Order="Secondary"
-					 Clicked="Tbi_OcultarEsperando_Clicked" />
-
-		<ToolbarItem x:Name="ocultarIniciados"
-					 Text="Ocultar jogos iniciados"
-					 Order="Secondary"
-					 Clicked="Tbi_OcultarIniciados_Clicked" />
-
-		<ToolbarItem x:Name="ocultarZerados"
-					 Text="Ocultar jogos zerados"
-					 Order="Secondary"
-					 Clicked="Tbi_OcultarZerados_Clicked" />
-
-		<ToolbarItem x:Name="mostrarTodos"
-					 Text="Mostrar todos os jogos"
-					 Order="Secondary"
-					 Clicked="Tbi_MostrarTodos_Clicked" />
-
-		<ToolbarItem Text="Selecione um arquivo"
-					 Order="Secondary"
-					 Command="{Binding AbrirSeletorArquivoCommand}" />
-
-		<ToolbarItem Text="Enviar doação"
-					 Order="Secondary"
-					 Clicked="Tbi_EnviarDoacao_Clicked" />
-	</ContentPage.ToolbarItems>
-
 	<RefreshView IsRefreshing="{Binding IsRefresh}">
 		<Grid Margin="30, 30, 0, 30"
-			  RowDefinitions="*, 60">
-			<ScrollView>
+			  RowDefinitions="90 ,*, 60">
+
+			<HorizontalStackLayout HorizontalOptions="Center"
+								   Padding="15"
+								   Spacing="15"
+								   Grid.Row="0">
+
+				<Button Text="Ocultar Todos"
+						Clicked="Btn_OcultarTodos_Clicked" />
+				<Button Text="Mostrar Todos"
+						Clicked="Btn_MostrarTodos_Clicked" />
+
+				<Button Text="Selecionar arquivo"
+						Command="{Binding AbrirSeletorArquivoCommand}" />
+
+				<Button Text="Enviar doação"
+						Clicked="Btn_EnviarDoacao_Clicked" />
+
+			</HorizontalStackLayout>
+
+			<ScrollView Grid.Row="1">
 				<Grid RowDefinitions="Auto, Auto, Auto"
 					  Margin="30, 0, 30, 0">
 					<VerticalStackLayout Spacing="15">
 						<!--ESPERANDO-->
-						<VerticalStackLayout x:Name="vslEsperando"
-											 Grid.Row="0">
+						<VerticalStackLayout Grid.Row="0">
 
-							<HorizontalStackLayout HorizontalOptions="Center"
-												   Spacing="5">
-								<Label Text="____ESPERA ="
-									   FontSize="25" />
+							<Grid ColumnDefinitions="*, *"
+								  WidthRequest="620"
+								  HorizontalOptions="CenterAndExpand">
+								<HorizontalStackLayout HorizontalOptions="Start"
+													   Spacing="5">
 
-								<Label Text="{Binding JogosAJogarQuant}"
-									   FontSize="25" />
-							</HorizontalStackLayout>
-							<CollectionView ItemsSource="{Binding JogosAJogarMV}"
+									<Label Text="ESPERA ="
+										   FontSize="25" />
+
+									<Label Text="{Binding JogosAJogarQuant}"
+										   FontSize="25" />
+
+								</HorizontalStackLayout>
+
+								<Button x:Name="btnEsperando"
+										Text="Ocultar"
+										HorizontalOptions="End"
+										Grid.Column="1"
+										Clicked="Btn_OcultarEsperando_Clicked" />
+							</Grid>
+							<CollectionView x:Name="clvEsperando"
+											ItemsSource="{Binding JogosAJogarMV}"
 											Margin="0, 10, 0, 30">
 
 								<CollectionView.EmptyView>
 
 									<Frame HorizontalOptions="Center"
 										   VerticalOptions="Center"
-										   Style="{StaticResource FramePaginaVazia}">
+										   BackgroundColor="White">
 
 										<VerticalStackLayout>
 											<Label Text="Não há mais jogos em espera."
@@ -188,26 +190,37 @@
 						</VerticalStackLayout>
 
 						<!--INICIADOS-->
-						<VerticalStackLayout x:Name="vslIniciados"
-											 Grid.Row="1">
+						<VerticalStackLayout Grid.Row="1">
 
-							<HorizontalStackLayout HorizontalOptions="Center"
-												   Spacing="5">
-								<Label Text="____INICIADOS ="
-									   FontSize="25" />
+							<Grid ColumnDefinitions="*, *"
+								  WidthRequest="620"
+								  HorizontalOptions="CenterAndExpand">
 
-								<Label Text="{Binding JogosIniciadosQuant}"
-									   FontSize="25" />
-							</HorizontalStackLayout>
+								<HorizontalStackLayout HorizontalOptions="Start"
+													   Spacing="5">
+									<Label Text="INICIADOS ="
+										   FontSize="25" />
 
-							<CollectionView ItemsSource="{Binding JogosIniciadosMV}"
+									<Label Text="{Binding JogosIniciadosQuant}"
+										   FontSize="25" />
+								</HorizontalStackLayout>
+
+								<Button x:Name="btnIniciados"
+										Text="Ocultar"
+										HorizontalOptions="End"
+										Grid.Column="1"
+										Clicked="Btn_OcultarIniciados_Clicked" />
+							</Grid>
+
+							<CollectionView x:Name="clvIniciados"
+											ItemsSource="{Binding JogosIniciadosMV}"
 											Margin="0, 10, 0, 30">
 
 								<CollectionView.EmptyView>
 
 									<Frame HorizontalOptions="Center"
 										   VerticalOptions="Center"
-										   Style="{DynamicResource FramePaginaVazia}">
+										   BackgroundColor="White">
 
 										<VerticalStackLayout>
 											<Label Text="Não há jogos sendo jogados."
@@ -232,6 +245,9 @@
 												<Label Text="{Binding Nome}"
 													   Style="{DynamicResource NomeLabel}" />
 
+												<Button Command="{Binding AbrirAtualizadorJogoCommand}"
+														Style="{StaticResource AtualizaButton}" />
+
 												<Button Command="{Binding ExlcluirJogoCommand}"
 														Style="{DynamicResource ExcluirJogoButton}" />
 
@@ -243,26 +259,37 @@
 						</VerticalStackLayout>
 
 						<!--ZERADOS-->
-						<VerticalStackLayout x:Name="vslZerados"
-											 Grid.Row="2">
+						<VerticalStackLayout Grid.Row="2">
 
-							<HorizontalStackLayout HorizontalOptions="Center"
-												   Spacing="5">
-								<Label Text="____ZERADOS ="
-									   FontSize="25" />
+							<Grid ColumnDefinitions="*, *"
+								  WidthRequest="620"
+								  HorizontalOptions="CenterAndExpand">
 
-								<Label Text="{Binding JogosZeradosQuant}"
-									   FontSize="25" />
-							</HorizontalStackLayout>
+								<HorizontalStackLayout HorizontalOptions="Start"
+													   Spacing="5">
+									<Label Text="ZERADOS ="
+										   FontSize="25" />
 
-							<CollectionView ItemsSource="{Binding JogosZeradosMV}"
+									<Label Text="{Binding JogosZeradosQuant}"
+										   FontSize="25" />
+								</HorizontalStackLayout>
+
+								<Button x:Name="btnZerados"
+										Text="Ocultar"
+										HorizontalOptions="End"
+										Grid.Column="1"
+										Clicked="Btn_OcultarZerados_Clicked" />
+							</Grid>
+
+							<CollectionView x:Name="clvZerados"
+											ItemsSource="{Binding JogosZeradosMV}"
 											Margin="0, 10, 0, 30">
 
 								<CollectionView.EmptyView>
 
 									<Frame HorizontalOptions="Center"
 										   VerticalOptions="Center"
-										   Style="{DynamicResource FramePaginaVazia}">
+										   BackgroundColor="White">
 
 										<VerticalStackLayout>
 											<Label Text="Não há jogos zerados."
@@ -289,6 +316,9 @@
 													   Style="{DynamicResource NomeLabel}"
 													   HorizontalTextAlignment="Center" />
 
+												<Button Command="{Binding AbrirAtualizadorJogoCommand}"
+														Style="{StaticResource AtualizaButton}" />
+
 												<Button Command="{Binding ExlcluirJogoCommand}"
 														Style="{DynamicResource ExcluirJogoButton}" />
 
@@ -302,7 +332,7 @@
 				</Grid>
 
 			</ScrollView>
-			<HorizontalStackLayout  Grid.Row="1"
+			<HorizontalStackLayout  Grid.Row="2"
 									HorizontalOptions="Center"
 									VerticalOptions="Center"
 									Spacing="25">
