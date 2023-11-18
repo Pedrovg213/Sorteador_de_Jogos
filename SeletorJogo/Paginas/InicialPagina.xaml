@@ -224,10 +224,10 @@
 
 										<VerticalStackLayout>
 											<Label Text="Não há jogos sendo jogados."
-												   Style="{DynamicResource LabelPaginaVazia}" />
+												   Style="{StaticResource LabelPaginaVazia}" />
 
 											<Label Text="Pressione 'Sortear Jogo' para sortear e iniciar um novo."
-												   Style="{DynamicResource LabelPaginaVazia}" />
+												   Style="{StaticResource LabelPaginaVazia}" />
 										</VerticalStackLayout>
 									</Frame>
 
@@ -239,7 +239,7 @@
 										<Frame Style="{DynamicResource JogoFrame}">
 											<Grid Style="{DynamicResource JogoGrid}">
 
-												<CheckBox IsChecked="{Binding Zerado}"
+												<CheckBox IsChecked="{Binding ZeradoCheckBox}"
 														  Style="{DynamicResource ZeradoCheckBox}" />
 
 												<Label Text="{Binding Nome}"
@@ -294,7 +294,7 @@
 										<VerticalStackLayout>
 											<Label Text="Não há jogos zerados."
 												   Style="{DynamicResource LabelPaginaVazia}" />
-											<Label Text="Finalize alguns dos jogos que estiver jogando e o marque como zerado."
+											<Label Text="Finalize alguns dos jogos e o marque como zerado."
 												   Style="{DynamicResource LabelPaginaVazia}" />
 										</VerticalStackLayout>
 
@@ -309,7 +309,7 @@
 
 											<Grid Style="{DynamicResource JogoGrid}">
 
-												<CheckBox IsChecked="{Binding Zerado}"
+												<CheckBox IsChecked="{Binding ZeradoCheckBox}"
 														  Style="{DynamicResource ZeradoCheckBox}" />
 
 												<Label Text="{Binding Nome}"

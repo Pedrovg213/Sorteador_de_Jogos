@@ -5,16 +5,27 @@ namespace SeletorJogo.PopUps;
 
 public partial class AtualizadorPopUp
 {
+	private JogoMV jogoMV;
+
 	public AtualizadorPopUp () =>
 		InitializeComponent( );
 
-	public AtualizadorPopUp ( JogoMV _jogoMV, EventHandler _okButtonClick ) : this( )
+	public AtualizadorPopUp ( JogoMV _jogoMV ) : this( )
 	{
-		BindingContext = _jogoMV;
-		okBtn.Clicked += _okButtonClick;
-		okBtn.Clicked += CancelarBtn_Clicked;
-		cacelarBtn.Clicked += CancelarBtn_Clicked;
+		okBtn.Clicked += AtualizarJogo;
+		okBtn.Clicked += FecharPopUp;
+		cacelarBtn.Clicked += FecharPopUp;
+
+		jogoMV = _jogoMV;
+
+		entName.Text = jogoMV.Nome;
+		pckEstado.SelectedIndex = (int)jogoMV.Estado;
 	}
-	private void CancelarBtn_Clicked ( object sender, EventArgs e ) =>
-		MopupService.Instance.PopAsync( );
+	private async void FecharPopUp ( object sender, EventArgs e )
+	{
+		if (MopupService.Instance.PopupStack.Count > 0)
+			await MopupService.Instance.PopAsync( );
+	}
+	private void AtualizarJogo ( object sender, EventArgs e ) =>
+		jogoMV.AtualizarJogo( entName.Text, (JogoMV.EstadoJogo)pckEstado.SelectedIndex );
 }

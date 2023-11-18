@@ -16,14 +16,11 @@ public static class JogosBaseDados
 			Directory.CreateDirectory( pastaCaminho );
 	}
 
-	private static void AtualizarJogo ( Jogo _jogo )
+	public static void AtualizarJogo ( Jogo _jogo )
 	{
-		if (jogos.Contains( _jogo ))
-		{
-			int index = jogos.IndexOf(_jogo);
-			jogos[index] = _jogo;
-			SalvarArquivo( );
-		}
+		int index = jogos.IndexOf(_jogo);
+		jogos[index] = _jogo;
+		SalvarArquivo( );
 	}
 
 	public static void SalvarArquivo ()
@@ -56,12 +53,8 @@ public static class JogosBaseDados
 
 	public static void AdicionarJogo ( Jogo _jogo )
 	{
-		if (!jogos.Contains( _jogo ))
-		{
-			jogos.Add( _jogo );
-			SalvarArquivo( );
-		} else
-			AtualizarJogo( _jogo );
+		jogos.Add( _jogo );
+		SalvarArquivo( );
 	}
 
 	public static void ExcluirJogo ( Jogo _jogo )

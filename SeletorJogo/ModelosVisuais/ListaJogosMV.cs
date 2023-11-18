@@ -95,7 +95,7 @@ public partial class ListaJogosMV : BaseMV
 				jogo,
 				( s, e ) =>
 				{
-					jogo.Iniciado = true;
+					jogo.Estado = JogoMV.EstadoJogo.Iniciado;
 					ReordenarJogos( jogo );
 				},
 				async ( s, e ) => await AbrirSorteadorPopUp( ) ) );
@@ -118,52 +118,58 @@ public partial class ListaJogosMV : BaseMV
 	}
 	public void ReordenarJogos ( JogoMV _jogo )
 	{
-		if (!_jogo.Zerado && !_jogo.Iniciado)
+		if (_jogo.Estado == JogoMV.EstadoJogo.Esperando)
 		{
 			if (JogosIniciadosMV.Remove( _jogo ))
 				JogosIniciadosQuant = JogosIniciadosMV.Count;
 			if (JogosZeradosMV.Remove( _jogo ))
 				JogosZeradosQuant = JogosZeradosMV.Count;
 
-			ObservableCollection<JogoMV> jogosJogar = new ObservableCollection<JogoMV>(todosJogos.Where(j => !j.Iniciado && !j.Zerado));
-			JogosAJogarMV = new ObservableCollection<JogoMV>( jogosJogar.OrderBy( j => j.Nome ) );
+			if (!JogosAJogarMV.Contains( _jogo ))
+				JogosAJogarMV.Add( _jogo );
+
+			JogosAJogarMV = new ObservableCollection<JogoMV>( JogosAJogarMV.OrderBy( j => j.Nome ) );
 			JogosAJogarQuant = JogosAJogarMV.Count;
 
-		} else if (_jogo.Iniciado)
+		} else if (_jogo.Estado == JogoMV.EstadoJogo.Iniciado)
 		{
 			if (JogosAJogarMV.Remove( _jogo ))
 				JogosAJogarQuant = JogosAJogarMV.Count;
 			if (JogosZeradosMV.Remove( _jogo ))
 				JogosZeradosQuant = JogosZeradosMV.Count;
 
-			ObservableCollection<JogoMV> jogosIniciados = new ObservableCollection<JogoMV>(todosJogos.Where(j => j.Iniciado));
-			JogosIniciadosMV = new ObservableCollection<JogoMV>( jogosIniciados.OrderBy( j => j.Nome ) );
+			if (!JogosIniciadosMV.Contains( _jogo ))
+				JogosIniciadosMV.Add( _jogo );
+
+			JogosIniciadosMV = new ObservableCollection<JogoMV>( JogosIniciadosMV.OrderBy( j => j.Nome ) );
 			JogosIniciadosQuant = JogosIniciadosMV.Count;
 
-		} else if (_jogo.Zerado)
+		} else if (_jogo.Estado == JogoMV.EstadoJogo.Zerado)
 		{
 			if (JogosAJogarMV.Remove( _jogo ))
 				JogosAJogarQuant = JogosAJogarMV.Count;
 			if (JogosIniciadosMV.Remove( _jogo ))
 				JogosIniciadosQuant = JogosIniciadosMV.Count;
 
-			ObservableCollection<JogoMV> jogosZerados = new ObservableCollection<JogoMV>(todosJogos.Where(j => j.Zerado));
-			JogosZeradosMV = new ObservableCollection<JogoMV>( jogosZerados.OrderBy( j => j.Nome ) );
+			if (!JogosZeradosMV.Contains( _jogo ))
+				JogosZeradosMV.Add( _jogo );
+
+			JogosZeradosMV = new ObservableCollection<JogoMV>( JogosZeradosMV.OrderBy( j => j.Nome ) );
 			JogosZeradosQuant = JogosZeradosMV.Count;
 		}
 	}
 
 	private void InicializarJogos ()
 	{
-		ObservableCollection<JogoMV> jogosJogar = new ObservableCollection<JogoMV>(todosJogos.Where(j => !j.Iniciado && !j.Zerado));
+		ObservableCollection<JogoMV> jogosJogar = new ObservableCollection<JogoMV>(todosJogos.Where(j => j.Estado == JogoMV.EstadoJogo.Esperando));
 		JogosAJogarMV = new ObservableCollection<JogoMV>( jogosJogar.OrderBy( j => j.Nome ) );
 		JogosAJogarQuant = JogosAJogarMV.Count;
 
-		ObservableCollection<JogoMV> jogosIniciados = new ObservableCollection<JogoMV>(todosJogos.Where(j => j.Iniciado));
+		ObservableCollection<JogoMV> jogosIniciados = new ObservableCollection<JogoMV>(todosJogos.Where(j =>j.Estado == JogoMV.EstadoJogo.Iniciado));
 		JogosIniciadosMV = new ObservableCollection<JogoMV>( jogosIniciados.OrderBy( j => j.Nome ) );
 		JogosIniciadosQuant = JogosIniciadosMV.Count;
 
-		ObservableCollection<JogoMV> jogosZerados = new ObservableCollection<JogoMV>(todosJogos.Where(j => j.Zerado));
+		ObservableCollection<JogoMV> jogosZerados = new ObservableCollection<JogoMV>(todosJogos.Where(j => j.Estado == JogoMV.EstadoJogo.Zerado));
 		JogosZeradosMV = new ObservableCollection<JogoMV>( jogosZerados.OrderBy( j => j.Nome ) );
 		JogosZeradosQuant = JogosZeradosMV.Count;
 	}

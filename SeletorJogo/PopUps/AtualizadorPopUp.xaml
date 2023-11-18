@@ -46,7 +46,7 @@
 			   VerticalOptions="Start"
 			   HorizontalOptions="Center" />
 
-		<Entry Text="{Binding Nome}"
+		<Entry x:Name="entName"
 			   Placeholder="Nome do jogo"
 			   Grid.ColumnSpan="2"
 			   Grid.RowSpan="2"
@@ -54,7 +54,7 @@
 			   VerticalOptions="CenterAndExpand"
 			   HorizontalOptions="CenterAndExpand"
 			   HorizontalTextAlignment="Center"
-			   MinimumWidthRequest="300"/>
+			   MinimumWidthRequest="300" />
 
 		<HorizontalStackLayout Grid.ColumnSpan="2"
 							   Grid.Row="2"
@@ -62,25 +62,19 @@
 							   VerticalOptions="Center"
 							   Spacing="15">
 
-			<VerticalStackLayout Grid.Column="0"
-								 HorizontalOptions="Center"
-								 VerticalOptions="Center">
+			<Picker x:Name="pckEstado"
+					Title="Situação do jogo"
+					TitleColor="White"
+					HorizontalTextAlignment="Center"
+					HorizontalOptions="Center">
 
-				<Label Text="Jogo Iniciado?" />
-				<CheckBox IsChecked="{Binding Iniciado}"
-						  HorizontalOptions="Center" />
+				<Picker.Items>
+					<x:String>Esperando</x:String>
+					<x:String>Iniciado</x:String>
+					<x:String>Zerado</x:String>
+				</Picker.Items>
 
-			</VerticalStackLayout>
-
-			<VerticalStackLayout Grid.Column="1"
-								 HorizontalOptions="Center"
-								 VerticalOptions="Center">
-
-				<Label Text="Jogo Zerado?" />
-				<CheckBox IsChecked="{Binding Zerado}"
-						  HorizontalOptions="Center" />
-
-			</VerticalStackLayout>
+			</Picker>
 
 		</HorizontalStackLayout>
 

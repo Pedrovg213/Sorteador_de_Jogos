@@ -16,8 +16,11 @@ public partial class AdicionarJogoPopUp
 		FocarEntry( );
 	}
 
-	private void CancelarBtn_Clicked ( object sender, EventArgs e ) =>
-		MopupService.Instance.PopAsync( );
+	private async void CancelarBtn_Clicked ( object sender, EventArgs e )
+	{
+		if (MopupService.Instance.PopupStack.Count > 0)
+			await MopupService.Instance.PopAsync( );
+	}
 
 	private void FocarEntry ()
 	{

@@ -22,6 +22,9 @@ public partial class DoacaoPopUp
 		await Clipboard.Default.SetTextAsync( codigo );
 	}
 
-	private void CancelarBtn_Clicked ( object sender, EventArgs e ) =>
-		MopupService.Instance.PopAsync( );
+	private async void CancelarBtn_Clicked ( object sender, EventArgs e )
+	{
+		if (MopupService.Instance.PopupStack.Count > 0)
+			await MopupService.Instance.PopAsync( );
+	}
 }

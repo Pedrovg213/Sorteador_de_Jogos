@@ -11,22 +11,28 @@ public partial class JogoMV : BaseMV
 	private Jogo jogo;
 	private ListaJogosMV listaJogosMV;
 
+	public enum EstadoJogo
+	{
+		Esperando,
+		Iniciado,
+		Zerado
+	}
 
 	[ObservableProperty]
 	private string nome;
 	[ObservableProperty]
-	private bool zerado;
+	private EstadoJogo estado;
 	[ObservableProperty]
-	private bool iniciado;
-
+	private bool zeradoCheckBox;
 
 
 	public JogoMV ( Jogo _jogo, ListaJogosMV _listaJogosMV )
 	{
 		jogo = _jogo;
 		Nome = _jogo.Name;
-		Iniciado = _jogo.Iniciado;
-		Zerado = _jogo.Zerado;
+
+		SetarEstadoJogo( _jogo.Iniciado, _jogo.Zerado );
+
 		listaJogosMV = _listaJogosMV;
 	}
 
@@ -37,32 +43,41 @@ public partial class JogoMV : BaseMV
 			listaJogosMV.ReordenarJogos( this );
 	}
 
-	partial void OnNomeChanged ( string value )
+	private void SetarEstadoJogo ( bool _inidicado, bool _zerado )
 	{
-		jogo.Name = value;
+		if (!_inidicado && !_zerado)
+			Estado = EstadoJogo.Esperando;
+		else if (_inidicado)
+			Estado = EstadoJogo.Iniciado;
+		else if (_zerado)
+			Estado = EstadoJogo.Zerado;
 
-		ReordenarJogos( );
+		ZeradoCheckBox = Estado == EstadoJogo.Zerado;
+	}
+	partial void OnZeradoCheckBoxChanged ( bool value )
+	{
+		SetarEstadoJogo( !value, value );
+
+		AtualizarJogo( );
 	}
 
-	partial void OnIniciadoChanged ( bool value )
+	public void AtualizarJogo ()
 	{
-		jogo.MarcarSeZerado( !value );
+		bool iniciado = Estado == EstadoJogo.Iniciado;
+		bool zerado = Estado == EstadoJogo.Zerado;
 
-		Zerado = !value;
+		ZeradoCheckBox = Estado == EstadoJogo.Zerado;
 
+		jogo.AtualizarJogo( Nome, iniciado, zerado );
 		ReordenarJogos( );
 	}
-	partial void OnZeradoChanged ( bool value )
+	public void AtualizarJogo ( string _nome, EstadoJogo _estado )
 	{
-		jogo.MarcarSeZerado( value );
+		Estado = _estado;
+		Nome = _nome;
 
-		Iniciado = !value;
-
-		ReordenarJogos( );
+		AtualizarJogo( );
 	}
-
-	public string PegaId () =>
-		 jogo.Identidade;
 
 	[RelayCommand]
 	private void ExlcluirJogo ()
@@ -74,7 +89,6 @@ public partial class JogoMV : BaseMV
 	[RelayCommand]
 	private async Task AbrirAtualizadorJogo ()
 	{
-		await MopupService.Instance.PushAsync( new AtualizadorPopUp( this,
-			( s, e ) => ReordenarJogos( ) ) );
+		await MopupService.Instance.PushAsync( new AtualizadorPopUp( this ) );
 	}
 }

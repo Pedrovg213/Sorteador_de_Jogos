@@ -28,23 +28,35 @@ public class Jogo
 		if (string.IsNullOrEmpty( Identidade ))
 			Identidade = Identidade.GerarId( );
 	}
-	public Jogo ( string _name ) : this( )
+	public Jogo ( string _name ) : this( ) =>
+		Name = _name;
+
+
+	public void AtualizarJogo ( string _name, bool _iniciado, bool _zerado )
 	{
 		Name = _name;
-		//AtualizarJogo( );
+
+		MarcarSeIniciado( _iniciado );
+		MarcarSeZerado( _zerado );
+
+		JogosBaseDados.AtualizarJogo( this );
 	}
-
-
 	public void AtualizarJogo () =>
-		 JogosBaseDados.AdicionarJogo( this );
+		JogosBaseDados.AtualizarJogo( this );
 
-	public string GetName () =>
-		 Name;
+
 	public void MarcarSeZerado ( bool _value )
 	{
-		Iniciado = !_value;
 		Zerado = _value;
-		AtualizarJogo( );
+		if (_value)
+			Iniciado = false;
+	}
+
+	public void MarcarSeIniciado ( bool _value )
+	{
+		Iniciado = _value;
+		if (_value)
+			Zerado = false;
 	}
 
 	public override bool Equals ( object obj )
