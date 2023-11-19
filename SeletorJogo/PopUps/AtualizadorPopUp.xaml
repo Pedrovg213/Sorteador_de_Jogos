@@ -59,8 +59,8 @@
 		<HorizontalStackLayout Grid.ColumnSpan="2"
 							   Grid.Row="2"
 							   HorizontalOptions="Center"
-							   VerticalOptions="Center"
-							   Spacing="15">
+							   VerticalOptions="StartAndExpand"
+							   BackgroundColor="Blue">
 
 			<Picker x:Name="pckEstado"
 					Title="Situação do jogo"

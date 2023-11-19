@@ -42,7 +42,7 @@ public class Jogo
 		JogosBaseDados.AtualizarJogo( this );
 	}
 	public void AtualizarJogo () =>
-		JogosBaseDados.AtualizarJogo( this );
+		JogosBaseDados.AdicionarJogo( this );
 
 
 	public void MarcarSeZerado ( bool _value )
