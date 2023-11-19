@@ -96,7 +96,7 @@ public partial class ListaJogosMV : BaseMV
 				( s, e ) =>
 				{
 					jogo.Estado = JogoMV.EstadoJogo.Iniciado;
-					ReordenarJogos( jogo );
+					jogo.AtualizarJogo( );
 				},
 				async ( s, e ) => await AbrirSorteadorPopUp( ) ) );
 		else

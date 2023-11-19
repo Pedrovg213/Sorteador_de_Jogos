@@ -66,13 +66,15 @@ public partial class JogoMV : BaseMV
 		bool iniciado = Estado == EstadoJogo.Iniciado;
 		bool zerado = Estado == EstadoJogo.Zerado;
 
-		ZeradoCheckBox = Estado == EstadoJogo.Zerado;
+		if (Estado != EstadoJogo.Esperando)
+			ZeradoCheckBox = Estado == EstadoJogo.Zerado;
 
 		jogo.AtualizarJogo( Nome, iniciado, zerado );
 		ReordenarJogos( );
 	}
-	public void AtualizarJogo ( string _nome, EstadoJogo _estado )
+	public async void AtualizarJogo ( string _nome, EstadoJogo _estado )
 	{
+		await Application.Current.MainPage.DisplayAlert( "Estado", _estado.ToString( ), "Ok" );
 		Estado = _estado;
 		Nome = _nome;
 
