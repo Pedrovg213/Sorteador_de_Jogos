@@ -7,7 +7,7 @@ public static class ExtensaoString
         {
             char[] chars = new char[]
             {'0','1', '2', '3', '4', '5', '6', '7', '8', '9'};
-            Random random = new Random();
+            Random random = new ();
 
             string toReturn = string.Empty;
 

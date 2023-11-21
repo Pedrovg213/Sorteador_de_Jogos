@@ -5,7 +5,7 @@ namespace SeletorJogo.PopUps;
 
 public partial class AtualizadorPopUp
 {
-	private JogoMV jogoMV;
+	private readonly JogoMV jogoMV;
 
 	public AtualizadorPopUp () =>
 		InitializeComponent( );

@@ -1,5 +1,4 @@
-﻿using SeletorJogo.Classes;
-using SeletorJogo.ModelosVisuais;
+﻿using SeletorJogo.ModelosVisuais;
 using System.Collections.ObjectModel;
 
 namespace SeletorJogo.Servicos;
@@ -15,5 +14,4 @@ public static class Seletor
 
 		return _jogos[index];
 	}
-
 }

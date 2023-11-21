@@ -6,7 +6,7 @@ namespace SeletorJogo.Paginas;
 
 public partial class InicialPagina : ContentPage
 {
-	private ListaJogosMV viewModel;
+	private readonly ListaJogosMV viewModel;
 
 	public InicialPagina ()
 	{

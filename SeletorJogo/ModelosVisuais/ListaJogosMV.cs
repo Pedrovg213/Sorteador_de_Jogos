@@ -10,15 +10,15 @@ using System.Collections.ObjectModel;
 namespace SeletorJogo.ModelosVisuais;
 public partial class ListaJogosMV : BaseMV
 {
-	private ObservableCollection<JogoMV> todosJogos = new ObservableCollection<JogoMV>();
+	private readonly ObservableCollection<JogoMV> todosJogos = new ();
 
 
 	[ObservableProperty]
-	private ObservableCollection<JogoMV> jogosAJogarMV = new ObservableCollection<JogoMV>();
+	private ObservableCollection<JogoMV> jogosAJogarMV = new ();
 	[ObservableProperty]
-	private ObservableCollection<JogoMV> jogosIniciadosMV = new ObservableCollection<JogoMV> ();
+	private ObservableCollection<JogoMV> jogosIniciadosMV = new();
 	[ObservableProperty]
-	private ObservableCollection<JogoMV> jogosZeradosMV = new ObservableCollection<JogoMV>();
+	private ObservableCollection<JogoMV> jogosZeradosMV = new ();
 	[ObservableProperty]
 	private int jogosAJogarQuant;
 	[ObservableProperty]
@@ -47,7 +47,7 @@ public partial class ListaJogosMV : BaseMV
 		if (string.IsNullOrEmpty( _nomeJogo ))
 			return;
 
-		Jogo jogo = new Jogo(_nomeJogo);
+		Jogo jogo = new (_nomeJogo);
 		jogo.AtualizarJogo( );
 
 		JogoMV jogoMV =  new( jogo, this );
@@ -60,12 +60,12 @@ public partial class ListaJogosMV : BaseMV
 	[RelayCommand]
 	private async Task AbrirSeletorArquivo ()
 	{
-		FilePickerFileType fileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+		FilePickerFileType fileType = new (new Dictionary<DevicePlatform, IEnumerable<string>>
 		{
 			{ DevicePlatform.WinUI, new[]{".txt"} },
 		});
 
-		PickOptions options = new PickOptions()
+		PickOptions options = new ()
 		{
 			PickerTitle = "Selecione um arquivo .txt, cada linha do arquivo será considerado um jogo a parte.",
 			FileTypes = fileType,
@@ -161,16 +161,16 @@ public partial class ListaJogosMV : BaseMV
 
 	private void InicializarJogos ()
 	{
-		ObservableCollection<JogoMV> jogosJogar = new ObservableCollection<JogoMV>(todosJogos.Where(j => j.Estado == JogoMV.EstadoJogo.Esperando));
-		JogosAJogarMV = new ObservableCollection<JogoMV>( jogosJogar.OrderBy( j => j.Nome ) );
+		ObservableCollection<JogoMV> jogosJogar = new (todosJogos.Where(j => j.Estado == JogoMV.EstadoJogo.Esperando));
+		JogosAJogarMV = new ( jogosJogar.OrderBy( j => j.Nome ) );
 		JogosAJogarQuant = JogosAJogarMV.Count;
 
-		ObservableCollection<JogoMV> jogosIniciados = new ObservableCollection<JogoMV>(todosJogos.Where(j =>j.Estado == JogoMV.EstadoJogo.Iniciado));
-		JogosIniciadosMV = new ObservableCollection<JogoMV>( jogosIniciados.OrderBy( j => j.Nome ) );
+		ObservableCollection<JogoMV> jogosIniciados = new (todosJogos.Where(j =>j.Estado == JogoMV.EstadoJogo.Iniciado));
+		JogosIniciadosMV = new ( jogosIniciados.OrderBy( j => j.Nome ) );
 		JogosIniciadosQuant = JogosIniciadosMV.Count;
 
-		ObservableCollection<JogoMV> jogosZerados = new ObservableCollection<JogoMV>(todosJogos.Where(j => j.Estado == JogoMV.EstadoJogo.Zerado));
-		JogosZeradosMV = new ObservableCollection<JogoMV>( jogosZerados.OrderBy( j => j.Nome ) );
+		ObservableCollection<JogoMV> jogosZerados = new (todosJogos.Where(j => j.Estado == JogoMV.EstadoJogo.Zerado));
+		JogosZeradosMV = new ( jogosZerados.OrderBy( j => j.Nome ) );
 		JogosZeradosQuant = JogosZeradosMV.Count;
 	}
 }

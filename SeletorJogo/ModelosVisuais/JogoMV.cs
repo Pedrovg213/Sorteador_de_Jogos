@@ -8,8 +8,8 @@ using SeletorJogo.PopUps;
 namespace SeletorJogo.ModelosVisuais;
 public partial class JogoMV : BaseMV
 {
-	private Jogo jogo;
-	private ListaJogosMV listaJogosMV;
+	private readonly Jogo jogo;
+	private readonly ListaJogosMV listaJogosMV;
 
 	public enum EstadoJogo
 	{
@@ -37,11 +37,8 @@ public partial class JogoMV : BaseMV
 	}
 
 
-	private void ReordenarJogos ()
-	{
-		if (listaJogosMV != null)
-			listaJogosMV.ReordenarJogos( this );
-	}
+	private void ReordenarJogos () =>
+		listaJogosMV?.ReordenarJogos( this );
 
 	private void SetarEstadoJogo ( bool _inidicado, bool _zerado )
 	{
@@ -72,9 +69,8 @@ public partial class JogoMV : BaseMV
 		jogo.AtualizarJogo( Nome, iniciado, zerado );
 		ReordenarJogos( );
 	}
-	public async void AtualizarJogo ( string _nome, EstadoJogo _estado )
+	public void AtualizarJogo ( string _nome, EstadoJogo _estado )
 	{
-		await Application.Current.MainPage.DisplayAlert( "Estado", _estado.ToString( ), "Ok" );
 		Estado = _estado;
 		Nome = _nome;
 
